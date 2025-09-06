@@ -1,6 +1,7 @@
 package com.crm.crmbackend.Entity;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -17,12 +18,12 @@ public class Customer {
 
     // One customer can have many tickets
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonIgnoreProperties("customer") 
     private List<Ticket> tickets;
 
     // One customer can have many deals
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonIgnoreProperties("customer") 
     private List<Deal> deals;
 
     // Getters and setters

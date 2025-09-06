@@ -1,6 +1,7 @@
 package com.crm.crmbackend.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
@@ -13,7 +14,7 @@ public class Lead {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    @JsonBackReference
+    @JsonIgnoreProperties({"tickets", "deals"})
     private Customer customer;
 
     private String source;
