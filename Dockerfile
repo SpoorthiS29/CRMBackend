@@ -25,4 +25,5 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 
 # Run the app
-CMD ["java", "-jar", "target/crm-backend-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/crmbackend-0.0.1-SNAPSHOT.jar"]
+
