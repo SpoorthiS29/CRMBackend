@@ -1,29 +1,28 @@
-# Use official OpenJDK image
-FROM eclipse-temurin:17-jdk-alpine
+# Use Java 21 since your project is built with 21
+FROM openjdk:17-jdk-slim AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml
+# Copy Maven wrapper & config
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
-
-# Give permission to mvnw
-RUN chmod +x mvnw
 
 # Download dependencies
 RUN ./mvnw dependency:go-offline
 
 # Copy source code
 COPY src src
-COPY target/crmbackend-0.0.1-SNAPSHOT.jar app.jar
-# Package the app
+
+# Build application
 RUN ./mvnw clean package -DskipTests
 
-# Expose port (Render will map it)
-EXPOSE 8080
+# ---- Runtime stage ----
+FROM openjdk:17-jdk-slim
+WORKDIR /app
 
-# Run the app
-CMD ["java", "-jar", "target/crmbackend-0.0.1-SNAPSHOT.jar"]
+# Copy built jar from build stage
+COPY --from=build /app/target/*.jar app.jar
 
+# Run the jar
+CMD ["java", "-jar", "app.jar"]
