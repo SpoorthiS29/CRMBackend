@@ -14,8 +14,8 @@ public class CrmbackendApplication {
 		SpringApplication.run(CrmbackendApplication.class, args);
 	}
 
-	@Value("${frontend.url}")
-	private String frontendUrl;
+	// @Value("${frontend.url}")
+	// private String frontendUrl;
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
@@ -24,7 +24,7 @@ public class CrmbackendApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins(frontendUrl)
+						.allowedOrigins("https://crmfrontend-4pym.onrender.com")
 						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 						.allowedHeaders("*")
 						.allowCredentials(true);
