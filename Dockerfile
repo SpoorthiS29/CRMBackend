@@ -17,7 +17,7 @@ RUN ./mvnw dependency:go-offline
 
 # Copy source code
 COPY src src
-
+COPY target/crmbackend-0.0.1-SNAPSHOT.jar app.jar
 # Package the app
 RUN ./mvnw clean package -DskipTests
 
